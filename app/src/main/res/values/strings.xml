@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ILikeEnglish</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello повторять fragment</string>
+    <string name="title_activity_main">ILikeEnglish</string>
+    <string name="repeat">Повторять</string>
+    <string name="learn">Учить</string>
+    <string name="dictionary">Словарь</string>
+</resources>
