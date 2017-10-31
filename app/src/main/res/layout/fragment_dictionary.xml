@@ -1,10 +1,24 @@
-<android.support.v7.widget.RecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/dictionary_recycler_view"
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_collapseParallaxMultiplier="1.0">
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-</android.support.v7.widget.RecyclerView>
+
+    <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/dictionary_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="411dp"
+        app:layout_collapseParallaxMultiplier="1.0">
+    </android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/addWord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Добавить слово"/>
+    </LinearLayout>
+
 

@@ -14,10 +14,12 @@ public class Database extends SQLiteAssetHelper {
     public static final String KEY_ID = "_id";
     public static final String KEY_ENG_WORD = "EngWord";
     public static final String KEY_RUS_WORD = "RusWord";
-    public static final String KEY_TRUE_ID = "trueID";
+    public static final String KEY_IS_LEARNED = "isLearned";
 
 
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 }
+
+

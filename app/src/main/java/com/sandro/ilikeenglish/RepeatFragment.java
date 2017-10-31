@@ -24,7 +24,7 @@ public class RepeatFragment extends Fragment {
     String fieldForQuestions, fieldForTrueAnswer, fieldForRandomAnswer;
     TextView question, optionOne, optionTwo, trueInfo;
     MainActivity massive = new MainActivity();
-    int  fieldForID, fieldForChecking, randomFalseAnswer;
+    int  fieldForID, randomFalseAnswer;
     boolean randomQuestion;
     int countOfQuestions = 6;
 
@@ -32,7 +32,6 @@ public class RepeatFragment extends Fragment {
         fieldForID = Integer.parseInt(massive.massiv[forNextQuestion][0]);
         fieldForQuestions = String.valueOf(massive.massiv[forNextQuestion][1]);
         fieldForTrueAnswer = String.valueOf(massive.massiv[forNextQuestion][2]);
-        fieldForChecking = Integer.parseInt(massive.massiv[forNextQuestion][3]);
         randomFalseAnswer = random.nextInt(countOfQuestions);
 
         while (randomFalseAnswer == forNextQuestion){

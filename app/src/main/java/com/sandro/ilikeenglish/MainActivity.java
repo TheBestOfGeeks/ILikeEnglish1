@@ -3,8 +3,7 @@ package com.sandro.ilikeenglish;
 
 
 
-import android.app.Activity;
-import android.content.Intent;
+
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -14,6 +13,8 @@ import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import static com.sandro.ilikeenglish.Database.KEY_ENG_WORD;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         Database mMyDatabase = new Database(this);
         final SQLiteDatabase database = mMyDatabase.getWritableDatabase();
         //*****
+
         Cursor cursor = database.query(Database.DATABASE_TABLE, null, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
@@ -70,16 +72,15 @@ public class MainActivity extends AppCompatActivity {
             int throughMassiv = 0;
 
             int idIndex = cursor.getColumnIndex(Database.KEY_ID);
-            int engIndex = cursor.getColumnIndex(Database.KEY_ENG_WORD);
+            int engIndex = cursor.getColumnIndex(KEY_ENG_WORD);
             int rusIndex = cursor.getColumnIndex(Database.KEY_RUS_WORD);
-            int trueIndex = cursor.getColumnIndex(Database.KEY_TRUE_ID);
 
 
             do {
                 massiv[throughMassiv][0] = String.valueOf(cursor.getInt(idIndex));
                 massiv[throughMassiv][1] = cursor.getString(engIndex);
                 massiv[throughMassiv][2] = cursor.getString(rusIndex);
-                massiv[throughMassiv][3] = String.valueOf(cursor.getInt(trueIndex));
+
 
                 throughMassiv++;
 
