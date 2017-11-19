@@ -4,6 +4,13 @@ package com.sandro.ilikeenglish;
 
 
 
+
+import android.app.Activity;
+import android.app.LoaderManager;
+import android.content.Context;
+import android.content.CursorLoader;
+import android.content.Loader;
+
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,20 +24,21 @@ import android.view.MenuItem;
 import static com.sandro.ilikeenglish.Database.KEY_ENG_WORD;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity /*implements LoaderManager.LoaderCallbacks<Cursor>*/ {
 
+    // Метод для создания транцакций фрагментов
     private void fragmentTransaction (Fragment fragment){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.container, fragment);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.commit();
     }
+    //.........
 
 
-
+    // Создание меню с переключением между фрагментрами
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
@@ -51,46 +59,51 @@ public class MainActivity extends AppCompatActivity {
         }
 
     };
-
-
-    static String[][] massiv = new String[100][4];
+    //.........
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        // Подключение базы
-        Database mMyDatabase = new Database(this);
-        final SQLiteDatabase database = mMyDatabase.getWritableDatabase();
-        //*****
-
-        Cursor cursor = database.query(Database.DATABASE_TABLE, null, null, null, null, null, null);
-
-        if (cursor.moveToFirst()) {
-
-            int throughMassiv = 0;
-
-            int idIndex = cursor.getColumnIndex(Database.KEY_ID);
-            int engIndex = cursor.getColumnIndex(KEY_ENG_WORD);
-            int rusIndex = cursor.getColumnIndex(Database.KEY_RUS_WORD);
-
-
-            do {
-                massiv[throughMassiv][0] = String.valueOf(cursor.getInt(idIndex));
-                massiv[throughMassiv][1] = cursor.getString(engIndex);
-                massiv[throughMassiv][2] = cursor.getString(rusIndex);
-
-
-                throughMassiv++;
-
-            } while (cursor.moveToNext());
-
-        }
-        cursor.close();
-
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
+
+/*    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+       return new MyCursorLoader(this, mMyDatabase);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+    }
+
+    static class MyCursorLoader extends CursorLoader {
+        // Подключение базы
+        Database mMyDatabase = new Database(getContext());
+        final SQLiteDatabase database = mMyDatabase.getWritableDatabase();
+        /*//*****
+
+        public MyCursorLoader(Context context, Database db) {
+            super(context);
+            db = mMyDatabase;
+        }
+
+  @Override
+  public Cursor loadInBackground() {
+      Cursor cursor = database.query(Database.DATABASE_TABLE, null, null, null, null, null, null);
+      return cursor;
+
+
+    }
+    }*/
+
 
 }

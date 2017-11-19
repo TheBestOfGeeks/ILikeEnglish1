@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Created by Sandro on 01.09.2017.
  */
@@ -13,7 +14,6 @@ public class WordsLab {
 
     private List<Word> mWords;
     private static WordsLab sWordsLab;
-    MainActivity mass = new MainActivity();
 
     public static WordsLab get(Context context) {
         if (sWordsLab == null) {

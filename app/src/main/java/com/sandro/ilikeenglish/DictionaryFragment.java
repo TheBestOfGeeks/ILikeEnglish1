@@ -3,8 +3,10 @@ package com.sandro.ilikeenglish;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,13 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.sandro.ilikeenglish.MainActivity.massiv;
 
 
 public class DictionaryFragment extends Fragment  {
@@ -30,7 +32,6 @@ public class DictionaryFragment extends Fragment  {
     }
 
     private RecyclerView mDictionaryRecyclerView;
-    MainActivity massive = new MainActivity();
     private DictionaryAdapter mAdapter;
     Button addWordBtn;
 
@@ -55,6 +56,8 @@ public class DictionaryFragment extends Fragment  {
                 //*****
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(Database.KEY_RUS_WORD, "олололо");
+                contentValues.put(Database.KEY_ENG_WORD, "ляляля");
+                contentValues.put(Database.KEY_IS_LEARNED, "ррррррр");
                 database.insert(Database.DATABASE_TABLE, null, contentValues);
             }
         });
@@ -62,9 +65,6 @@ public class DictionaryFragment extends Fragment  {
         return view;
 
     }
-
-
-
     private void updateUI() {
         WordsLab wordsLab = WordsLab.get(getActivity());
         List<Word> words = wordsLab.getWords();
@@ -121,5 +121,6 @@ public class DictionaryFragment extends Fragment  {
         }
     }
     //****************************
+
 
 }

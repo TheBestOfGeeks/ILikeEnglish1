@@ -23,21 +23,21 @@ public class RepeatFragment extends Fragment {
     final Random random = new Random();
     String fieldForQuestions, fieldForTrueAnswer, fieldForRandomAnswer;
     TextView question, optionOne, optionTwo, trueInfo;
-    MainActivity massive = new MainActivity();
+    Database db = new Database(getActivity());
     int  fieldForID, randomFalseAnswer;
     boolean randomQuestion;
     int countOfQuestions = 6;
 
     void setAnswers(int forNextQuestion){
-        fieldForID = Integer.parseInt(massive.massiv[forNextQuestion][0]);
-        fieldForQuestions = String.valueOf(massive.massiv[forNextQuestion][1]);
-        fieldForTrueAnswer = String.valueOf(massive.massiv[forNextQuestion][2]);
+        fieldForID = Integer.parseInt(db.getMassive()[forNextQuestion][0]);
+        fieldForQuestions = String.valueOf(db.getMassive()[forNextQuestion][1]);
+        fieldForTrueAnswer = String.valueOf(db.getMassive()[forNextQuestion][2]);
         randomFalseAnswer = random.nextInt(countOfQuestions);
 
         while (randomFalseAnswer == forNextQuestion){
             randomFalseAnswer = random.nextInt(countOfQuestions);
         }
-        fieldForRandomAnswer = String.valueOf(massive.massiv[randomFalseAnswer][2]);
+        fieldForRandomAnswer = String.valueOf(db.getMassive()[randomFalseAnswer][2]);
 
         randomQuestion = random.nextBoolean();
 
@@ -57,7 +57,6 @@ public class RepeatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_repeat, container, false);
-
         question = (TextView) view.findViewById(R.id.question);
         optionOne = (TextView) view.findViewById(R.id.answerOne);
         optionTwo = (TextView) view.findViewById(R.id.answerTwo);
