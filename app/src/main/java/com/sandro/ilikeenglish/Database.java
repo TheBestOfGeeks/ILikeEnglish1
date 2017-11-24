@@ -20,6 +20,7 @@ public class Database extends SQLiteAssetHelper {
 
     static String[][] massiv = new String[100][4];
     SQLiteDatabase database;
+    String test;
 
 
     public Database(Context context) {
