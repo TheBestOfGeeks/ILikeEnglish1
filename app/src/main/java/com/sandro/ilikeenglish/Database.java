@@ -46,6 +46,7 @@ public class Database extends SQLiteAssetHelper {
 
 
     public String[][] getMassive () {
+
         Cursor cursor = database.query(Database.DATABASE_TABLE,
                 null, null, null, null, null, null);
         if (cursor.moveToFirst()) {

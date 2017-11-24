@@ -23,35 +23,10 @@ public class RepeatFragment extends Fragment {
     final Random random = new Random();
     String fieldForQuestions, fieldForTrueAnswer, fieldForRandomAnswer;
     TextView question, optionOne, optionTwo, trueInfo;
-    Database db = new Database(getActivity());
     int  fieldForID, randomFalseAnswer;
     boolean randomQuestion;
     int countOfQuestions = 6;
-
-    void setAnswers(int forNextQuestion){
-        fieldForID = Integer.parseInt(db.getMassive()[forNextQuestion][0]);
-        fieldForQuestions = String.valueOf(db.getMassive()[forNextQuestion][1]);
-        fieldForTrueAnswer = String.valueOf(db.getMassive()[forNextQuestion][2]);
-        randomFalseAnswer = random.nextInt(countOfQuestions);
-
-        while (randomFalseAnswer == forNextQuestion){
-            randomFalseAnswer = random.nextInt(countOfQuestions);
-        }
-        fieldForRandomAnswer = String.valueOf(db.getMassive()[randomFalseAnswer][2]);
-
-        randomQuestion = random.nextBoolean();
-
-        question.setText(fieldForQuestions);
-
-        if (randomQuestion == true){
-            optionOne.setText(fieldForTrueAnswer);
-            optionTwo.setText(fieldForRandomAnswer);
-
-        } else {
-            optionOne.setText(fieldForRandomAnswer);
-            optionTwo.setText(fieldForTrueAnswer);
-        }
-    }
+    Database db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,7 +35,8 @@ public class RepeatFragment extends Fragment {
         question = (TextView) view.findViewById(R.id.question);
         optionOne = (TextView) view.findViewById(R.id.answerOne);
         optionTwo = (TextView) view.findViewById(R.id.answerTwo);
-
+        db = new Database(getActivity());
+        db.open(getActivity());
         setAnswers(random.nextInt(countOfQuestions));
         question.setText(fieldForQuestions);
 
@@ -102,6 +78,31 @@ public class RepeatFragment extends Fragment {
         });
 
      return view;
+    }
+
+    void setAnswers(int forNextQuestion){
+        fieldForID = Integer.parseInt(db.getMassive()[forNextQuestion][0]);
+        fieldForQuestions = String.valueOf(db.getMassive()[forNextQuestion][1]);
+        fieldForTrueAnswer = String.valueOf(db.getMassive()[forNextQuestion][2]);
+        randomFalseAnswer = random.nextInt(countOfQuestions);
+
+        while (randomFalseAnswer == forNextQuestion){
+            randomFalseAnswer = random.nextInt(countOfQuestions);
+        }
+        fieldForRandomAnswer = String.valueOf(db.getMassive()[randomFalseAnswer][2]);
+
+        randomQuestion = random.nextBoolean();
+
+        question.setText(fieldForQuestions);
+
+        if (randomQuestion == true){
+            optionOne.setText(fieldForTrueAnswer);
+            optionTwo.setText(fieldForRandomAnswer);
+
+        } else {
+            optionOne.setText(fieldForRandomAnswer);
+            optionTwo.setText(fieldForTrueAnswer);
+        }
     }
 
 

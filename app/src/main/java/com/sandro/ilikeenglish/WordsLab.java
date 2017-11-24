@@ -25,8 +25,8 @@ public class WordsLab {
         mWords = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             Word word = new Word();
-            word.setRusWord(mass.massiv[i][1]);
-            word.setEngWord(mass.massiv[i][2]);
+/*            word.setRusWord(mass.massiv[i][1]);
+            word.setEngWord(mass.massiv[i][2]);*/
             mWords.add(word);
         }
     }
