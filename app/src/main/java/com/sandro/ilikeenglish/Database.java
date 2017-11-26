@@ -55,6 +55,10 @@ public class Database extends SQLiteAssetHelper {
     }
 
 
+    public void deleteWord (){
+        database.delete(Database.DATABASE_TABLE, Database.KEY_ID + "=" + "1", null);
+    }
+
 
     public String[][] getMassive () {
 
@@ -85,7 +89,7 @@ public class Database extends SQLiteAssetHelper {
         return massiv;
 
     }
-
+// добавить слово в базу
     public void addNewWord (String rusWord, String engWord, String isLearned){
         ContentValues contentValues = new ContentValues();
         contentValues.put(Database.KEY_RUS_WORD, rusWord);
