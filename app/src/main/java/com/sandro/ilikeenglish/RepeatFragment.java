@@ -25,7 +25,7 @@ public class RepeatFragment extends Fragment {
     TextView question, optionOne, optionTwo, trueInfo;
     int  fieldForID, randomFalseAnswer;
     boolean randomQuestion;
-    int countOfQuestions = 6;
+     int countOfQuestions;
     Database db;
 
     @Override
@@ -37,6 +37,7 @@ public class RepeatFragment extends Fragment {
         optionTwo = (TextView) view.findViewById(R.id.answerTwo);
         db = new Database(getActivity());
         db.open(getActivity());
+        countOfQuestions = db.countOfQestions();
         setAnswers(random.nextInt(countOfQuestions));
         question.setText(fieldForQuestions);
 

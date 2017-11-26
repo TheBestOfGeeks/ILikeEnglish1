@@ -1,5 +1,6 @@
 package com.sandro.ilikeenglish;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -28,20 +29,29 @@ public class Database extends SQLiteAssetHelper {
     }
 
 
-
+    // Открыть подключение к БД
     public void open(Context context) {
         Database mMyDatabase = new Database(context);
         database = mMyDatabase.getWritableDatabase();
     }
-
-
+// Закрыть подключение к базе
     public void close() {
         database.close();
     }
+    public int countOfQestions(){
+        Cursor cursor = database.query(Database.DATABASE_TABLE,
+                null, null, null, null, null, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+
+    }
+
 
     public void getAllData (){
         Cursor cursor = database.query(Database.DATABASE_TABLE,
                 null, null, null, null, null, null);
+
     }
 
 
@@ -76,7 +86,13 @@ public class Database extends SQLiteAssetHelper {
 
     }
 
-
+    public void addNewWord (String rusWord, String engWord, String isLearned){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Database.KEY_RUS_WORD, rusWord);
+        contentValues.put(Database.KEY_ENG_WORD, engWord);
+        contentValues.put(Database.KEY_IS_LEARNED, isLearned);
+        database.insert(Database.DATABASE_TABLE, null, contentValues);
+    }
 
 }
 

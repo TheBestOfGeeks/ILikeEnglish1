@@ -1,25 +1,21 @@
 package com.sandro.ilikeenglish;
 
 
-import android.app.Activity;
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+
+
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -31,9 +27,13 @@ public class DictionaryFragment extends Fragment  {
         // Required empty public constructor
     }
 
+    private static final String NEW_WORD = "newWord";
     private RecyclerView mDictionaryRecyclerView;
     private DictionaryAdapter mAdapter;
     Button addWordBtn;
+    private List<Word> mWords;
+    Database db;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,35 +42,44 @@ public class DictionaryFragment extends Fragment  {
                 false);
         mDictionaryRecyclerView = (RecyclerView) view.findViewById(R.id.dictionary_recycler_view);
         mDictionaryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         updateUI();
-
-
 
         addWordBtn = (Button) view.findViewById(R.id.addWord);
         addWordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Подключение базы
-                Database mMyDatabase = new Database(getActivity());
-                final SQLiteDatabase database = mMyDatabase.getWritableDatabase();
-                //*****
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(Database.KEY_RUS_WORD, "олололо");
-                contentValues.put(Database.KEY_ENG_WORD, "ляляля");
-                contentValues.put(Database.KEY_IS_LEARNED, "ррррррр");
-                database.insert(Database.DATABASE_TABLE, null, contentValues);
+
+                FragmentManager manager = getFragmentManager();
+                AddWordFragment addWordFragment = new AddWordFragment();
+                addWordFragment.show(manager, NEW_WORD);
+
             }
         });
 
         return view;
 
     }
+
+
+    //доступ к базе - заполнение массива и передача его в лист - Запуск ресайклер вью
     private void updateUI() {
-        WordsLab wordsLab = WordsLab.get(getActivity());
-        List<Word> words = wordsLab.getWords();
-        mAdapter = new DictionaryAdapter(words);
-        mDictionaryRecyclerView.setAdapter(mAdapter);
+        db = new Database(getActivity());
+        db.open(getActivity());
+
+        mWords = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            Word word = new Word();
+            word.setRusWord(db.getMassive()[i][1]);
+            word.setEngWord(db.getMassive()[i][2]);
+            mWords.add(word);
+        }
+
+            mAdapter = new DictionaryAdapter(mWords);
+            mDictionaryRecyclerView.setAdapter(mAdapter);
+
     }
+    // ...........
 
 
 
