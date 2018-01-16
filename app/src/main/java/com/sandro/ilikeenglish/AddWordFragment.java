@@ -47,9 +47,7 @@ public class AddWordFragment extends DialogFragment {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                db = new Database(getActivity());
-                                db.open(getActivity());
-                                db.deleteWord();
+
                             }
                         })
                 .create();

@@ -62,6 +62,9 @@ public class DictionaryFragment extends Fragment  {
     }
 
 
+
+
+
     //доступ к базе - заполнение массива и передача его в лист - Запуск ресайклер вью
     private void updateUI() {
         db = new Database(getActivity());

@@ -1,6 +1,10 @@
 package com.sandro.ilikeenglish;
 
 
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.Random;
 
 
@@ -22,11 +25,15 @@ public class RepeatFragment extends Fragment {
 
     final Random random = new Random();
     String fieldForQuestions, fieldForTrueAnswer, fieldForRandomAnswer;
-    TextView question, optionOne, optionTwo, trueInfo;
+    TextView question, optionOne, optionTwo;
     int  fieldForID, randomFalseAnswer;
     boolean randomQuestion;
-     int countOfQuestions;
+     int countOfQuestions, trueSound, falseSound;
+    SoundPool mSoundPool;
+    Context mContext;
     Database db;
+    AssetManager assets;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +47,12 @@ public class RepeatFragment extends Fragment {
         countOfQuestions = db.countOfQestions();
         setAnswers(random.nextInt(countOfQuestions));
         question.setText(fieldForQuestions);
+
+        mContext = getActivity().getApplicationContext();
+
+        mSoundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+
+        trueSound = loadSound("cat.ogg");
 
 
         optionOne.setOnClickListener(new View.OnClickListener() {
